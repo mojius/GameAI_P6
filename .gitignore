@@ -1,2 +1,6 @@
 src/kaggle/
-.*jpg
+*.jpg
+*.npy
+*.keras
+**/__pycache__
+*.pyc
