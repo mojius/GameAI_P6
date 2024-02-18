@@ -15,6 +15,8 @@
 from config import train_directory, test_directory, train_size, categories
 import os
 import shutil
+import keras
+
 
 def copy_dataset(source_directory, target_directory, categories = None, target_size = None):
     if categories is None:
@@ -40,9 +42,8 @@ def copy_dataset(source_directory, target_directory, categories = None, target_s
             target_image_path = os.path.join(target_category_dir, image_file)
             shutil.copy(source_image_path, target_image_path)
 
-
 if __name__ == "__main__":
-    source_directory = 'kaggle'
+    source_directory = './kaggle'
     train_source_directory = os.path.join(source_directory, 'train')
     test_source_directory = os.path.join(source_directory, 'test')
     train_target_directory = train_directory
