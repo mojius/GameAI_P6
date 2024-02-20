@@ -2,6 +2,7 @@ from config import BOARD_SIZE, categories, image_size
 from tensorflow.keras import models
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 class TicTacToePlayer:
     def get_move(self, board_state):
@@ -96,6 +97,21 @@ class UserWebcamPlayer:
     def _get_emotion(self, img) -> int:
         # Your code goes here
         #
+
+        # resize image to image_size
+
+        resized_image = np.resize(img, (image_size[0], image_size[1], 3)).reshape(150, 150, 3)
+        resized_image = np.expand_dims(resized_image, axis=0)
+        
+        model = models.load_model('results/Step_5.keras')
+
+        emotion_scores = model.predict(resized_image)
+
+        # get the index of the highest value in the array
+
+        print(emotion_scores)
+        emotion = int(np.argmax(emotion_scores))
+        
         # img an np array of size NxN (square), each pixel is a value between 0 to 255
         # you have to resize this to image_size before sending to your model
         # to show the image here, you can use:
@@ -107,8 +123,8 @@ class UserWebcamPlayer:
         # The classification value should be 0, 1, or 2 for neutral, happy or surprise respectively
 
         # return an integer (0, 1 or 2), otherwise the code will throw an error
-        return 1
-        pass
+
+        return emotion
     
     def get_move(self, board_state):
         row, col = None, None

@@ -2,6 +2,7 @@ from models.model import Model
 from tensorflow.keras import Sequential, layers
 from tensorflow.keras.layers.experimental.preprocessing import Rescaling
 from tensorflow.keras.optimizers import RMSprop, Adam
+import numpy as np
 
 class BasicModel(Model):
     def _define_model(self, input_shape, categories_count):
@@ -14,7 +15,8 @@ class BasicModel(Model):
             layers.Rescaling(1./255, input_shape=input_shape),
             # Resizes images.
             layers.Resizing(32,32),
-            layers.Conv2D(4, 2, padding='same', activation='relu'),      
+            layers.Conv2D(4, 2, padding='same', activation='relu'),   
+            layers.Dropout(0.25),   
             layers.MaxPooling2D(),
             # When we go from convolutional layers to fully connected layers.       
             layers.Flatten(),
@@ -30,4 +32,3 @@ class BasicModel(Model):
         self.model.compile(optimizer=optimizer,
                            loss='categorical_crossentropy',
                            metrics=['accuracy'])
-        pass
