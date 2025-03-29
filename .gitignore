@@ -4,3 +4,5 @@ src/kaggle/
 *.keras
 **/__pycache__
 *.pyc
+
+*.DS_Store

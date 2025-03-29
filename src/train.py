@@ -6,8 +6,8 @@ from config import image_size
 import matplotlib.pyplot as plt
 import time
 
-input_shape = (image_size[0], image_size[1], 3)
-categories_count = 3
+input_shape = (image_size[0], image_size[1], 2)
+categories_count = 2
 
 models = {
     'basic_model': BasicModel,
@@ -59,6 +59,7 @@ if __name__ == "__main__":
     print('* Confusion Matrix for {}'.format(name))
     print(model.get_confusion_matrix(test_dataset))
     model_name = '{}_{}_epochs_timestamp_{}'.format(name, epochs, int(time.time()))
+    print('* Saving model as {}'.format(model_name))
     filename = 'results/{}.keras'.format(model_name)
     model.save_model(filename)
     np.save('results/{}.npy'.format(model_name), history)
